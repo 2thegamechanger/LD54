@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://audio/test_audio.mp3" type="AudioStream" id=1]
 
 [node name="Node2D" type="Node2D"]
 
@@ -11,3 +13,8 @@ text = "THIS IS MY GAME FOR
 LUDUM DARE 54 : )"
 align = 1
 valign = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 534, 281 )
+stream = ExtResource( 1 )
+autoplay = true
