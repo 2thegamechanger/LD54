@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 459.0
+margin_top = 269.0
+margin_right = 599.0
+margin_bottom = 300.0
+text = "THIS IS MY GAME FOR
+LUDUM DARE 54 : )"
+align = 1
+valign = 1
