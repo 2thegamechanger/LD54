@@ -8,6 +8,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="ship" parent="." instance=ExtResource( 1 )]
+position = Vector2( 190, 300 )
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2( 995, 287 )

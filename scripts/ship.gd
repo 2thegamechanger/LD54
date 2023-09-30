@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 class_name Ship
 
 var _direction = Vector2.RIGHT
@@ -11,8 +11,7 @@ func _ready():
 		
 
 func _physics_process(delta):
-	var vec = move_and_slide(compute_movement())
-
+	position += compute_movement() * delta
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -48,3 +47,11 @@ func compute_movement():
 	_velocity = Utils.vec_clamp(_velocity, 0.0, msp)
 	
 	return _velocity
+
+
+func _on_field_area_entered(area):
+	print("entered area")
+
+
+func _on_field_area_exited(area):
+	print("exited areas")

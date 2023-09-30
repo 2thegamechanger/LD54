@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 class_name Bullet
 
 export(float) var velocity = 200
@@ -15,7 +15,7 @@ func _ready():
 	_current_velocity = _direction * velocity
 
 func _physics_process(delta):
-	var vec = move_and_slide(compute_movement())
+	position += compute_movement() * delta
 
 func compute_movement():
 	_direction = _current_velocity.normalized()
@@ -23,6 +23,7 @@ func compute_movement():
 	motion.rotation = atan2(_direction.x, -_direction.y)
 	
 	return _current_velocity
+	
 	
 func change_direction(phi:float):
 	_current_velocity = _direction.rotated(phi) * velocity
