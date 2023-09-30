@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 class_name Ship
 
 var _direction = Vector2.RIGHT
@@ -55,3 +55,7 @@ func _on_field_area_entered(area):
 
 func _on_field_area_exited(area):
 	print("exited areas")
+
+
+func _on_core_area_entered(area):
+	pass # Replace with function body.

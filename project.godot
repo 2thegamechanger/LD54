@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
+"base": "Node2D",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://scripts/bullet.gd"
 }, {
-"base": "Area2D",
+"base": "Node2D",
 "class": "Ship",
 "language": "GDScript",
 "path": "res://scripts/ship.gd"

@@ -8,12 +8,17 @@
 radius = 11.5974
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 46.5107
+radius = 12.0104
 
-[node name="ship" type="Area2D"]
+[node name="ship" type="Node2D"]
 scale = Vector2( 2, 2 )
-collision_mask = 4
 script = ExtResource( 3 )
+
+[node name="core" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="core_collider" type="CollisionShape2D" parent="core"]
+shape = SubResource( 1 )
 
 [node name="triangle" type="Sprite" parent="."]
 position = Vector2( 19.5, 0.5 )
@@ -25,9 +30,6 @@ texture = ExtResource( 1 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 
-[node name="collider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
 [node name="field" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 8
@@ -35,5 +37,6 @@ collision_mask = 8
 [node name="field_collider" type="CollisionShape2D" parent="field"]
 shape = SubResource( 2 )
 
+[connection signal="area_entered" from="core" to="." method="_on_core_area_entered"]
 [connection signal="area_entered" from="field" to="." method="_on_field_area_entered"]
 [connection signal="area_exited" from="field" to="." method="_on_field_area_exited"]
