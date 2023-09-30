@@ -3,4 +3,8 @@ extends Node
 
 const MY_SETTING = "very nice"
 
+const INPUT_USE_KEYS = true
+const INPUT_USE_CONTROLLER = true
+const INPUT_USE_MOUSE = true
+
 const PLAYER_SPEED = 300
