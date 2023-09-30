@@ -12,6 +12,9 @@ var _contacts = {}
 var _core_size = 0
 var _field_size = 0
 
+signal add_points
+signal got_hit
+
 
 func _ready():
 	if Settings.INPUT_USE_MOUSE:
@@ -22,6 +25,8 @@ func _ready():
 
 func _physics_process(delta):
 	position += compute_movement() * delta
+	position += compute_border_force() * delta
+	#position += compute_border_force() * delta
 	if len(_contacts) > 0:
 		handle_contact()
 
@@ -68,8 +73,10 @@ func handle_contact():
 		var size = _field_size + _contacts[c]
 		var dist = position.distance_to(c.global_position) - _core_size * 2
 		weight += 1.0 - (dist / size)
-	print(len(_contacts), " weight: ",weight, " clamped: ",clamp(weight, 0, 1))
+	
+	var pe = Settings.POINT_EXPONENT
 	change_color(clamp(weight, 0, 1))
+	emit_signal("add_points", pow(weight + 1.0, pe))
 
 
 func change_color(value:float):
@@ -83,6 +90,30 @@ func change_color(value:float):
 	core_sprite.modulate.a = ca
 
 
+func compute_border_force():
+	var pms = Settings.PLAYER_MAX_SPEED
+	var bpf = Settings.BORDER_PUSH_FORCE
+	var bpe = Settings.BORDER_PUSH_EXPONENT
+	var bpd = Settings.BORDER_PUSH_DISTANCE
+
+	var viewport_rect = get_viewport_rect()
+	var sw = viewport_rect.size.x # screen width
+	var sh = viewport_rect.size.y # screen height
+	bpd *= sh # make distance percentage of screen height
+
+	var gp = global_position
+	var distances = [bpd - gp.x, -sw+bpd+gp.x, bpd - gp.y, -sh+bpd+gp.y]
+	var f = []
+	for d in distances:
+		f.append( pow( max(d, 0) / bpd, bpe) )
+	var force = Vector2.ZERO
+	force += f[0] * Vector2.RIGHT
+	force += f[1] * Vector2.LEFT
+	force += f[2] * Vector2.DOWN
+	force += f[3] * Vector2.UP
+	
+	return force * bpf * pms
+
 func _on_field_area_entered(area):
 	_contacts[area] = area.get_children()[0].shape.radius
 
@@ -94,4 +125,4 @@ func _on_field_area_exited(area):
 
 
 func _on_core_area_entered(area):
-	pass # Replace with function body.
+	emit_signal("got_hit")

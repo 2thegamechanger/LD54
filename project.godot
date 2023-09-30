@@ -15,12 +15,18 @@ _global_script_classes=[ {
 "path": "res://scripts/bullet.gd"
 }, {
 "base": "Node2D",
+"class": "LevelManager",
+"language": "GDScript",
+"path": "res://scripts/level_manager.gd"
+}, {
+"base": "Node2D",
 "class": "Ship",
 "language": "GDScript",
 "path": "res://scripts/ship.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
+"LevelManager": "",
 "Ship": ""
 }
 

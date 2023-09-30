@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/ship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://graphics/Triangle-Transparent.png" type="Texture" id=3]
 [ext_resource path="res://scripts/bullet_spawner.gd" type="Script" id=4]
+[ext_resource path="res://scripts/level_manager.gd" type="Script" id=5]
 
-[node name="Node2D" type="Node2D"]
+[node name="main" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="ship" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 300 )
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="emitter" type="Node2D" parent="."]
 position = Vector2( 995, 287 )
 script = ExtResource( 4 )
 spawn_interval_in_seconds = 0.482
@@ -18,7 +20,38 @@ bullet_speed_deviation_in_percent = 0.5
 angle_deviation_in_degree = 45.0
 bullet_scene = ExtResource( 2 )
 
-[node name="Triangle-Transparent" type="Sprite" parent="Node2D"]
+[node name="emitter_sprite" type="Sprite" parent="emitter"]
 position = Vector2( 0, -4 )
 scale = Vector2( 0.0707831, 0.0682594 )
 texture = ExtResource( 3 )
+
+[node name="energy_bar" type="ColorRect" parent="."]
+margin_left = 291.0
+margin_top = 544.0
+margin_right = 791.0
+margin_bottom = 584.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="energy_left" type="ColorRect" parent="energy_bar"]
+margin_right = 250.0
+margin_bottom = 40.0
+color = Color( 0.121569, 0.560784, 1, 1 )
+
+[node name="energy_right" type="ColorRect" parent="energy_bar"]
+margin_left = 250.0
+margin_right = 500.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 250, 0 )
+color = Color( 0.121569, 0.560784, 1, 1 )
+
+[node name="score" type="Label" parent="."]
+margin_left = 333.0
+margin_top = 16.0
+margin_right = 465.0
+margin_bottom = 30.0
+rect_scale = Vector2( 3, 3 )
+text = "000'000'000'000'000"
+align = 1
+
+[connection signal="add_points" from="ship" to="." method="_on_ship_add_points"]
+[connection signal="got_hit" from="ship" to="." method="_on_ship_got_hit"]

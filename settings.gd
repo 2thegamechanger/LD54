@@ -5,13 +5,20 @@ const MY_SETTING = "very nice"
 
 const INPUT_USE_KEYS = true
 const INPUT_USE_CONTROLLER = true
-const INPUT_USE_MOUSE = true
+const INPUT_USE_MOUSE = false
 
 const PLAYER_MAX_SPEED = 300
 const PLAYER_VELOCITY_ATTACK = 15
-const PLAYER_VELOCITY_DECAY = 10
+const PLAYER_VELOCITY_DECAY = 5
+
+const BORDER_PUSH_FORCE = 1.5 # times PLAYER_MAX_SPEED
+const BORDER_PUSH_EXPONENT = 1
+const BORDER_PUSH_DISTANCE = 0.15 # in percent of screen height
 
 const COLOR_BULLET_COOL = Color.red
 const COLOR_BULLET_HOT = Color.white
 const COLOR_PLAYER_COOL = Color.dodgerblue
 const COLOR_PLAYER_HOT = Color.white
+
+const POINT_EXPONENT = 2
+const ON_HIT_ENERGY_PENALTY_IN_PERCENT = 0.2
