@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Ship
 
 var _direction = Vector2.RIGHT
 var _mouse_delta = Vector2.ZERO
