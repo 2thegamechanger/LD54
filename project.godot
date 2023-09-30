@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://scenes/bullet.gd"
+"path": "res://scripts/bullet.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Ship",
