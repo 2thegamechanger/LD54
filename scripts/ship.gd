@@ -18,6 +18,9 @@ func compute_movement(delta):
 	if Input.is_action_pressed("up"): vel += Vector2.UP
 	if Input.is_action_pressed("down"): vel += Vector2.DOWN
 	
+	var joy = Vector2(Input.get_joy_axis(0,0), Input.get_joy_axis(0,1))
+	if joy.length() > 0.5: vel += joy
+	
 	_direction = vel.normalized()
 	print(_direction * sp)
 	return _direction * sp #*delta
