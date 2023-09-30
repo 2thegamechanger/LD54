@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var _direction = Vector2.RIGHT
 var _mouse_delta = Vector2.ZERO
-
+var _velocity = Vector2.ZERO
 
 func _ready():
 	if Settings.INPUT_USE_MOUSE:
@@ -19,8 +19,12 @@ func _input(event):
 
 
 func compute_movement():
-	var sp = Settings.PLAYER_SPEED
+	var msp = Settings.PLAYER_MAX_SPEED
+	var va = Settings.PLAYER_VELOCITY_ATTACK 
+	var vd = Settings.PLAYER_VELOCITY_DECAY
+	
 	var vel = Vector2.ZERO
+	
 	if Settings.INPUT_USE_KEYS:
 		if Input.is_action_pressed("left"): vel += Vector2.LEFT
 		if Input.is_action_pressed("right"): vel += Vector2.RIGHT
@@ -36,4 +40,10 @@ func compute_movement():
 	
 	_direction = vel.normalized()
 	_mouse_delta = Vector2.ZERO
-	return _direction * sp #*delta
+	if vel != Vector2.ZERO:
+		_velocity += _direction * va
+	else: 
+		_velocity -= _velocity.normalized() * vd
+	_velocity = Utils.vec_clamp(_velocity, 0.0, msp)
+	
+	return _velocity

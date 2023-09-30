@@ -17,6 +17,7 @@ run/main_scene="res://scenes/main.tscn"
 
 Settings="*res://settings.gd"
 Data="*res://data.gd"
+Utils="*res://utils.gd"
 
 [input]
 
