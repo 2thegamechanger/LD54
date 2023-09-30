@@ -12,6 +12,9 @@
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2( 995, 287 )
 script = ExtResource( 4 )
+spawn_interval_in_seconds = 0.1
+bullet_speed_deviation_in_percent = 0.5
+angle_deviation_in_degree = 45.0
 bullet_scene = ExtResource( 2 )
 
 [node name="Triangle-Transparent" type="Sprite" parent="Node2D"]
