@@ -3,8 +3,9 @@ class_name LevelManager
 
 export var required_energy = 10000
 onready var player = $ship
-onready var bars = [$energy_bar/energy_left, $energy_bar/energy_right]
-onready var score_text = $score
+onready var bars = [$ui/energy_bar/energy_left, $ui/energy_bar/energy_right]
+onready var ui = $ui
+onready var score_text = $ui/score
 var _score = 0
 var _energy_since_last_hit = 0.0
 var _current_energy = 0.0
@@ -14,7 +15,7 @@ var _current_multiplier
 
 
 func _ready():
-	for b in bars: b.rect_scale.x = 0	
+	for b in bars: b.rect_scale.x = 0
 
 
 func update_score():
