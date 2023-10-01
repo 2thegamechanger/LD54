@@ -24,8 +24,8 @@ func _physics_process(delta):
 		var b = _bullet.instance() as Bullet
 		b.velocity = bullet_speed * rand_range(1.0 - bullet_speed_deviation_in_percent, 1.0)
 		get_tree().root.add_child(b)
-		# TODO: Inherit rotation of the spawner
 		b.position = global_position
+		b.set_direction(Vector2.UP) # TODO: CONTINUE HERE!
 		b.change_direction(deg2rad(rand_range(-1, 1) * angle_deviation_in_degree))
 	
 		# TODO: add rotation in world space

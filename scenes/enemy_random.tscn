@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/bullet_spawner.gd" type="Script" id=1]
+[ext_resource path="res://scenes/bullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://graphics/Triangle-Transparent.png" type="Texture" id=3]
+
+[node name="random_emitter" type="Node2D"]
+position = Vector2( 995, 287 )
+script = ExtResource( 1 )
+spawn_interval_in_seconds = 0.482
+bullet_speed_deviation_in_percent = 0.5
+angle_deviation_in_degree = 45.0
+bullet_scene = ExtResource( 2 )
+
+[node name="emitter_sprite" type="Sprite" parent="."]
+position = Vector2( 0, -4 )
+scale = Vector2( 0.0707831, 0.0682594 )
+texture = ExtResource( 3 )

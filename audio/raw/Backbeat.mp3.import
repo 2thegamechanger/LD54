@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Backbeat.mp3-f46887547c2b67b9dd9341f5f945d0d3.mp3str"
+
+[deps]
+
+source_file="res://audio/raw/Backbeat.mp3"
+dest_files=[ "res://.import/Backbeat.mp3-f46887547c2b67b9dd9341f5f945d0d3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

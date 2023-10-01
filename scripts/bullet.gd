@@ -3,6 +3,8 @@ class_name Bullet
 
 export(float) var velocity = 200
 export(Vector2) var direction = Vector2.LEFT
+export(PackedScene) var death_effect = null
+export(Data.bullet_modifier) var modifier_type = Data.bullet_modifier.ROTATE
 
 onready var core_sprite = $core_sprite
 onready var motion_sprite = $motion_sprite
@@ -14,6 +16,9 @@ var _current_velocity = Vector2.ZERO
 var _core_size = 0
 var _field_size = 0
 var _contacts = {}
+var _modifier_value = 0.0
+var _modifier_amplitude = 1.0 # relative to movement speed?
+var _modifier_frequency = 1.0
 
 func _ready():
 	_direction = direction.normalized()
@@ -21,18 +26,47 @@ func _ready():
 	_core_size = core_collider.shape.radius
 	_field_size = field_collider.shape.radius
 	change_color(0)
-	
+
+
 func _physics_process(delta):
-	position += compute_movement() * delta
+	# collisions
 	if len(_contacts) > 0:
 		handle_contact()
-
-func compute_movement():
-	_direction = _current_velocity.normalized()
-	#_velocity = _direction * velocity
-	motion_sprite.rotation = atan2(_direction.x, -_direction.y)
 	
-	return _current_velocity
+	# state
+	var bm = Data.bullet_modifier
+	match modifier_type:
+		bm.NONE:
+			compute_movement(delta)
+		bm.PERISTALSIS:
+			pass
+		bm.ROTATE:
+			handle_rotate_modifier(delta)
+		bm.WAVE:
+			handle_wave_modifier(delta)
+
+
+func handle_rotate_modifier(delta):
+	var ma = _modifier_amplitude / PI
+	_current_velocity = _current_velocity.rotated(deg2rad(ma))
+	compute_movement(delta)
+
+
+func handle_wave_modifier(delta):
+	var mv = _modifier_value
+	var mf = _modifier_frequency
+	var ma = _modifier_amplitude
+	var val = sin(mv * mf * PI) * ma
+	_current_velocity = _current_velocity.rotated(deg2rad(val))
+	compute_movement(delta)
+
+
+func compute_movement(delta):
+	position += _current_velocity * delta
+	_direction = _current_velocity.normalized()
+	motion_sprite.rotation = atan2(_direction.x, -_direction.y)
+	_modifier_value += delta
+
 
 func handle_contact():
 	var weight = 0
@@ -42,9 +76,15 @@ func handle_contact():
 		weight += dist / size
 	
 	change_color(1.0 - clamp(weight, 0, 1))
-	
+
+
+func set_direction(dir:Vector2):
+	_current_velocity = dir * velocity
+
+
 func change_direction(phi:float):
 	_current_velocity = _direction.rotated(phi) * velocity
+
 
 func change_color(value:float):
 	value = clamp(value, 0, 1)
@@ -59,8 +99,10 @@ func change_color(value:float):
 	core_sprite.modulate.a = ca
 	motion_sprite.modulate.a = ma
 
+
 func _on_field_area_entered(area):
 	_contacts[area] = area.get_children()[0].shape.radius
+
 
 func _on_field_area_exited(area):
 	_contacts.erase(area)
@@ -69,4 +111,7 @@ func _on_field_area_exited(area):
 
 
 func _on_core_area_entered(area):
+	if death_effect:
+		var e = death_effect.instance() as Effect
+		get_tree().root.add_child(e)
 	queue_free()

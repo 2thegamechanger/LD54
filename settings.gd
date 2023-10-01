@@ -8,12 +8,12 @@ const INPUT_USE_CONTROLLER = true
 const INPUT_USE_MOUSE = false
 
 const PLAYER_MAX_SPEED = 300
-const PLAYER_VELOCITY_ATTACK = 15
-const PLAYER_VELOCITY_DECAY = 5
+const PLAYER_VELOCITY_ATTACK = 12
+const PLAYER_VELOCITY_DECAY = 1
 
 const BORDER_PUSH_FORCE = 1.5 # times PLAYER_MAX_SPEED
-const BORDER_PUSH_EXPONENT = 1
-const BORDER_PUSH_DISTANCE = 0.15 # in percent of screen height
+const BORDER_PUSH_EXPONENT = 1.5
+const BORDER_PUSH_DISTANCE = 0.2 # in percent of screen height
 
 const COLOR_BULLET_COOL = Color.red
 const COLOR_BULLET_HOT = Color.white
