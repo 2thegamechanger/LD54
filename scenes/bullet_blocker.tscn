@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 35, 35 )
+
+[node name="bullet_blocker" type="Area2D"]
+collision_mask = 4
+
+[node name="visualization" type="ColorRect" parent="."]
+margin_left = -36.0
+margin_top = -35.0
+margin_right = 34.0
+margin_bottom = 35.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="rect_collider" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 0 )
+shape = SubResource( 1 )

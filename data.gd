@@ -10,7 +10,8 @@ enum my_enum {
 enum bullet_pattern {
 	NONE,
 	RANDOM,
-	CIRCLE,
+	CIRCLE_CW,
+	CIRCLE_CCW
 }
 
 enum bullet_dispension {
@@ -23,14 +24,17 @@ enum bullet_modifier {
 	NONE,
 	ROTATE,
 	PERISTALSIS,
-	WAVE
+	WAVE,
+	COMBINED
 }
 
 enum entry_type {
 	NONE,
 	SPAWN,
 	STRAIGHT,
-	CURVED
+	TOP,
+	BOTTOM,
+	CURVE
 }
 
 enum movement_type {

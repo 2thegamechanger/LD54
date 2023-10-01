@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/emitter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/level.gd" type="Script" id=3]
+
+[node name="009" type="Node2D"]
+script = ExtResource( 3 )
+energy_required = 6000.0
+
+[node name="enemy" parent="." instance=ExtResource( 2 )]
+position = Vector2( 913, 174 )
+emitters = [ NodePath("circle"), NodePath("") ]
+
+[node name="circle" parent="enemy" instance=ExtResource( 1 )]
+position = Vector2( 1, -1 )
+spawn_interval_in_seconds = 2.0
+amount = 11
+bullet_speed_deviation_in_percent = 0.0
+angle_deviation_in_degree = 5.0
+bullet_pattern = 3
+bullet_dispension = 2
+
+[node name="enemy2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 916, 408 )
+emitters = [ NodePath("circle"), NodePath("") ]
+
+[node name="circle" parent="enemy2" instance=ExtResource( 1 )]
+position = Vector2( 1, -1 )
+spawn_interval_in_seconds = 2.0
+amount = 11
+bullet_speed_deviation_in_percent = 0.0
+angle_deviation_in_degree = 5.0
+bullet_pattern = 2
+bullet_dispension = 2
