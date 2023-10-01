@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/arpeggio.mp3-eb7d55e32b9fed6aa02e841df86dd373.mp3str"
+
+[deps]
+
+source_file="res://audio/sounds/arpeggio.mp3"
+dest_files=[ "res://.import/arpeggio.mp3-eb7d55e32b9fed6aa02e841df86dd373.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

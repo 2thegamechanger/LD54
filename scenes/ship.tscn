@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://graphics/Triangle-Transparent.png" type="Texture" id=1]
 [ext_resource path="res://graphics/e211a123-bd0d-4d98-898b-df0e4e7d8b52.png" type="Texture" id=2]
 [ext_resource path="res://scripts/ship.gd" type="Script" id=3]
+[ext_resource path="res://audio/sounds/electric_buzz.mp3" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 11.5974
@@ -36,6 +37,13 @@ collision_mask = 8
 
 [node name="field_collider" type="CollisionShape2D" parent="field"]
 shape = SubResource( 2 )
+
+[node name="proximity" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -30.59
+pitch_scale = 2.33
+autoplay = true
+bus = "effects"
 
 [connection signal="area_entered" from="core" to="." method="_on_core_area_entered"]
 [connection signal="area_entered" from="field" to="." method="_on_field_area_entered"]

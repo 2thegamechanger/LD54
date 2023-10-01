@@ -5,12 +5,16 @@ class_name Ship
 onready var core_sprite = $core_sprite
 onready var core_collider = $core/core_collider
 onready var field_collider = $field/field_collider
+onready var buzz = $proximity
 var _direction = Vector2.RIGHT
 var _mouse_delta = Vector2.ZERO
 var _velocity = Vector2.ZERO
 var _contacts = {}
 var _core_size = 0
 var _field_size = 0
+var _buzz_volume = -50
+var _chorus_value = 0
+var _phaser_value = 1
 
 signal add_points
 signal got_hit
@@ -29,6 +33,15 @@ func _physics_process(delta):
 	#position += compute_border_force() * delta
 	if len(_contacts) > 0:
 		handle_contact()
+	var chorus = AudioServer.get_bus_effect(2,0)
+	chorus.dry = 1.0 - _chorus_value
+	chorus.wet = _chorus_value
+	var phaser = AudioServer.get_bus_effect(2,1)
+	phaser.rate_hz = _phaser_value
+	_buzz_volume = clamp(_buzz_volume - 1.0, -50, 0)
+	_chorus_value = clamp(_chorus_value -0.08, 0, 1)
+	_phaser_value = clamp(_chorus_value -0.5, 1, 12)
+	buzz.volume_db = _buzz_volume
 
 
 func _input(event):
@@ -75,8 +88,12 @@ func handle_contact():
 		weight += 1.0 - (dist / size)
 	
 	var pe = Settings.POINT_EXPONENT
-	change_color(clamp(weight, 0, 1))
 	emit_signal("add_points", pow(weight + 1.0, pe))
+	_buzz_volume = pow(1.0 - clamp(weight, 0, 1), 2.0) * -50
+	weight *= 0.5
+	_chorus_value = pow(clamp(weight, 0, 1), 3.0)
+	_phaser_value = pow(clamp(weight, 0, 1), 3.0) * 11.0 + 1.0
+	change_color(clamp(weight, 0, 1))
 
 
 func change_color(value:float):
